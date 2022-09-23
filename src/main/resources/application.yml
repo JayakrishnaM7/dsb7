@@ -1,0 +1,42 @@
+eureka: 
+  client: 
+    serviceUrl: 
+      defaultZone: http://${server.eureka}/eureka/
+management: 
+  endpoint: 
+    metrics: 
+      enabled: true
+    prometheus: 
+      enabled: true
+  endpoints: 
+    web: 
+      exposure: 
+        include: "*"
+  metrics: 
+    export: 
+      prometheus: 
+        enabled: true
+spring: 
+  application: 
+    name: bianfundtransfer
+  kafka: 
+    bootstrap-servers: ${server.kafka.url}
+    consumer: 
+      client-id: bianfundtransfer-consumer
+      concurrency: 1
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+    producer: 
+      acks: 1
+      buffer-memory: 23625
+      client-id: bianfundtransfer-producer
+      linger-ms: 12
+      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+    template: 
+      group-id: bianfundtransfer-consumer
+  profiles: 
+    active: local
+  sleuth: 
+    sampler: 
+      percentage: 1
+  zipkin: 
+    base-url: http://${server.zipkin}
